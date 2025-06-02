@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Services\OpenWeatherService;
+use App\Service\OpenWeatherService;
 
 class WeatherController extends Controller
 {

@@ -3,4 +3,4 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WeatherController;
 
-Route::get('/wethare',[WeatherController::class, 'show']);
+Route::get('/weather',[WeatherController::class, 'show']);
