@@ -1,20 +1,51 @@
-import { WeatherData } from "@/types/Weather";
+import Image from 'next/image';
+import React from 'react';
+import { WeatherData } from '@/types/Weather'; // adjust path if needed
 
-export default function WeatherCard({ data }: { data:WeatherData }) {
-    return (
-        <div className="card bg-base-100 shadow-xl p-4 mt-4">
-            <h2 className="card-title">{data.name}</h2>
-            <div className="flex items-center gap-4">
-                <img
-                src={`https://openweathermap.org/img/wn/${data.weather[0].icon}.png`}
-                alt={data.weather[0].description}
-                /> 
-                <div>
-                    <p className="text-2xl">{data.main.temp}</p>
-                    <p>{data.weather[0].main}-{data.weather[0].description}</p>
-                    <p>Humidity: {data.main.humidity}%</p>
-                </div>  
-            </div>
-        </div>
-    );
+interface WeatherProps {
+  data: WeatherData;
 }
+
+
+const Weather: React.FC<WeatherProps> = ({ data }) => {
+  console.log(data);
+  return (
+    <div className='relative flex flex-col justify-between max-w-[500px] w-full h-[90vh] m-auto p-4 text-gray-300 z-10'>
+      {/* Top */}
+      <div className='relative flex justify-between pt-12'>
+        <div className='flex flex-col items-center'>
+          <Image
+            src={`http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`}
+            alt='/'
+            width='100'
+            height='100'
+          />
+          <p className='text-2xl'>{data.weather[0].main}</p>
+        </div>
+        <p className='text-9xl'>{data.main.temp.toFixed(0)}&#176;</p>
+      </div>
+      {/* Bottom */}
+
+<div className='bg-black/50 relative p-8 rounded-md'>
+    <p className='text-2xl text-center pb-6'>Weather in {data.name}</p>
+    <div className='flex justify-between text-center'>
+        <div>
+            <p className='font-bold text-2xl'>{data.main.feels_like.toFixed(0)}&#176;</p>
+            <p className='text-xl'>Feels Like</p>
+        </div>
+        <div>
+            <p className='font-bold text-2xl'>{data.main.humidity}%</p>
+            <p className='text-xl'>Humidity</p>
+        </div>
+        <div>
+            <p className='font-bold text-2xl'>{data.wind.speed.toFixed(0)} MPH</p>
+            <p className='text-xl'>Winds</p>
+        </div>
+    </div>
+</div>
+
+    </div>
+  );
+};
+
+export default Weather;
