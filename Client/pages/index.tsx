@@ -5,10 +5,11 @@ import { BsSearch } from 'react-icons/bs';
 import Weather from '@/components/WeatherCard';
 import Spinner from '@/components/Spinner';
 import { fetchWeather } from '@/utils/fetchWeather';
+import { WeatherData } from '@/types/Weather';
 
 export default function Home() {
   const [city, setCity] = useState('');
-  const [weather, setWeather] = useState({});
+  const [weather, setWeather] = useState<WeatherData | null>(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const [units, setUnits] = useState<'metric' | 'imperial'>('imperial');
@@ -49,7 +50,7 @@ export default function Home() {
         <Image
           src='https://images.unsplash.com/photo-1601134467661-3d775b999c8b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=2575&q=80'
           alt='weather background image'
-          layout='fill'
+          fill
           className='object-cover'
         />
 
@@ -94,7 +95,7 @@ export default function Home() {
         </div>
 
         {/* Weather */}
-        {Weather.main && <Weather data={Weather} />}
+        {weather && weather.main && <Weather data={weather} units={units}/>}
       </div>
     );
   }
